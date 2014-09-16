@@ -1,0 +1,1 @@
+int times_two(int x);
