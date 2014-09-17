@@ -1,1 +1,1 @@
-int times_two(int x);
+int timesTwo(int x);

@@ -30,6 +30,19 @@ you need to use a given bit of functionality in both C++ and Haskell, you write 
 either C or Haskell, not C++. It's unfortunate we have to limit ourselves that way, but
 it greatly simplifies the integration.
 
+## Naming Conventions
+
+C and C++ are notoriously lacking in agreed-upon naming conventions. To name a few, the
+C++ standard library, the C standard library, the OpenGL API, and the Google C++ Style
+Guide all follow different rules.
+
+Haskell, on the other hand, has agreed-upon naming conventions. Those conventions happen
+to be consistent with at least *some* of the popular C/C++ projects and API. So I'll use
+the Haskell conventions as much as possible in my C/C++ code.
+
+You're free to disagree and use a different convention in your own code. The techniques
+used here will still work.
+
 ## A Starter Haskell File
 
 Make `hello.hs`:
@@ -137,12 +150,12 @@ Run `make`, and you should see the "hello world" output from each language.
 Let's make a C function to call from Haskell. Create `times_two.h` and `times_two.c`:
 
     /* times_two.h */
-    int times_two(int x);
+    int timesTwo(int x);
     
     /* times_two.c */
     #include "times_two.h"
 
-    int times_two(int x) { return x * 2; }
+    int timesTwo(int x) { return x * 2; }
 
 Add it to your `Makefile` and run `make`:
     
@@ -163,7 +176,7 @@ Now let's create a Haskell file that calls `times_two`:
     import Foreign.C.Types
 
     foreign export ccall timesSix :: CInt -> CInt
-    foreign import ccall "times_two.h times_two" timesTwo :: CInt -> CInt
+    foreign import ccall "times_two.h timesTwo" timesTwo :: CInt -> CInt
 
     timesSix :: CInt -> CInt
     timesSix = timesTwo . (3*)
@@ -171,12 +184,12 @@ Now let's create a Haskell file that calls `times_two`:
 You've already seen `foreign export` declarations. Now, we've added a `foreign import` to
 the mix. Inside the double quotes, we declare the C header where the function is defined
 and the C name of the function. After the quotes, we define the name by which the function
-will be known in Haskell. Notice that we gave it a slightly different name, camel-cased to
-match Haskell's stylistic conventions.
+will be known in Haskell. We could have aliased the function to a different name if we
+wanted to.
 
 Having imported the C function, we can use it, as we do in our definition of `timesSix`.
 This shows how we can mix and match C and Haskell functions. We can define a bit of
-functionality in C--in this case the `times_two` function--and use it in a Haskell
+functionality in C--in this case the `timesTwo` function--and use it in a Haskell
 function. We can then export that Haskell function to C as we did above, using the
 `foreign export` syntax. Next, we'll see how to call `timesSix` from a C++ file.
 
