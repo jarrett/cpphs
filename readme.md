@@ -27,8 +27,14 @@ the executable, will be performed by GCC.
 
 I said above we'd only call vanilla C from Haskell. As a general rule, I recommend that if
 you need to use a given bit of functionality in both C++ and Haskell, you write it in
-either C or Haskell, not C++. It's unfortunate we have to limit ourselves that way, but
-it greatly simplifies the integration.
+either C or Haskell, not C++.
+
+One consequence of that choice is that you'll need to use the `extern "C"` syntax to link
+from C++ to C object files. You could consider doing so
+[in the C header files](https://stackoverflow.com/questions/3789340/combining-c-and-c-how-does-ifdef-cplusplus-work).
+
+These limitations can be inconvenient, but in my opinion, they're *less* inconvenient than
+trying to call C++ from Haskell.
 
 ## Naming Conventions
 
