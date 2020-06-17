@@ -126,6 +126,7 @@ hard-coded paths as necessary.
       -liconv \
       -I/usr/local/Cellar/ghc/7.6.3/lib/ghc-7.6.3/include \
       -L/usr/local/Cellar/ghc/7.6.3/lib/ghc-7.6.3 \
+      -L/usr/local/Cellar/ghc/7.6.3/lib/ghc-7.6.3/rts \
       -lHSrts \
       -L/usr/local/Cellar/ghc/7.6.3/lib/ghc-7.6.3/base-4.6.0.1 \
       -lHSbase-4.6.0.1 \
